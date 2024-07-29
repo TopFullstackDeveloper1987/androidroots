@@ -1,0 +1,12 @@
+(function(_ds){var window=this;var S8=class extends _ds.kK{constructor(){super(["devsite-dialog","devsite-dropdown-list","devsite-view-release-notes-dialog"]);this.Go=!1;this.releaseNotes=new Map;this.g=null;this.path="";this.label="Release Notes";this.disableAutoOpen=!1}Xa(){return this}async connectedCallback(){super.connectedCallback();try{this.path||(this.path=await _ds.Oq(_ds.E().href));const h=new _ds.FF;var a=new _ds.tB,b=this.path;let k;k=b.startsWith("http:")||b.startsWith("https:")?new URL(b):b.startsWith("/")?new URL(b,
+document.location.origin):new URL(`https://${b}`);k.hash="";var c=encodeURIComponent(k.href.substring(k.protocol.length+2));var d=_ds.Eh(a,1,`path/${c}`);let l;if((l=await _ds.EF(h,d))==null)var e=void 0;else{var f=_ds.jh(l,_ds.vB,1,_ds.eh());e=f==null?void 0:f.slice()}a=e||[];for(const m of a){a="";if(_ds.hh(m,_ds.Vt,3)){var g=_ds.hh(m,_ds.Vt,3);const p=Number(_ds.Rd(_ds.Ac(_ds.bh(g,1),!0),"0")),u=_ds.rh(g,2);a=(new Date(p*1E3+u/1E6)).toLocaleDateString(void 0,{year:"numeric",month:"short",day:"numeric"})}let n;
+this.releaseNotes.set(a,[...((n=this.releaseNotes.get(a))!=null?n:[]),m])}}catch(h){}this.releaseNotes.size===0?this.remove():(this.Go=!0,this.disableAutoOpen||location.hash!=="#release__notes"||this.j())}disconnectedCallback(){super.disconnectedCallback();let a;(a=this.g)==null||a.remove();this.g=null}j(a){a&&(a.preventDefault(),a.stopPropagation());let b;(b=this.g)==null||b.remove();this.g=document.createElement("devsite-dialog");this.g.classList.add("devsite-view-release-notes-dialog-container");
+_ds.AJ((0,_ds.T)`
+      <devsite-view-release-notes-dialog
+        .releaseNotes=${this.releaseNotes}>
+      </devsite-view-release-notes-dialog>
+    `,this.g);document.body.appendChild(this.g);this.g.open=!0;this.La({category:"Site-Wide Custom Events",action:"release notes: view note",label:`${this.path}`})}render(){if(!this.Go)return delete this.dataset.shown,(0,_ds.T)``;this.dataset.shown="";return(0,_ds.T)`
+      <button class="view-notes-button" @click="${this.j}">
+        ${this.label}
+      </button>
+    `}};_ds.x([_ds.P(),_ds.y(Object)],S8.prototype,"Go",void 0);_ds.x([_ds.O({type:String}),_ds.y(Object)],S8.prototype,"path",void 0);_ds.x([_ds.O({type:String}),_ds.y(Object)],S8.prototype,"label",void 0);_ds.x([_ds.O({type:Boolean,Aa:"disable-auto-open"}),_ds.y(Object)],S8.prototype,"disableAutoOpen",void 0);try{customElements.define("devsite-view-release-notes",S8)}catch(a){console.warn("devsite.app.customElement.DevsiteViewReleaseNotes",a)};})(_ds_www);

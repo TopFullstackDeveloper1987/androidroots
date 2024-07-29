@@ -1,0 +1,44 @@
+(function(_ds){var window=this;var Hea=function(a){a.eventHandler.listen(a,"DropdownItemClicked",b=>{Gea(a,b)})},Gea=async function(a,b){const c=b.getBrowserEvent().detail.id;b=a.querySelector(".devsite-dialog-contents");const d=a.querySelector(`#date-section-${c}`);let e,f,g,h;const k=((g=d==null?void 0:(e=d.getBoundingClientRect())==null?void 0:e.top)!=null?g:0)-((h=b==null?void 0:(f=b.getBoundingClientRect())==null?void 0:f.top)!=null?h:0);d&&b&&b.scrollBy({top:k,behavior:"smooth"});let l,m;a.ci=(m=(l=a.hj.find(n=>n.id===c))==
+null?void 0:l.title)!=null?m:"";a.g.Va(a.ci)},Jea=function(a){const b=new IntersectionObserver(c=>{c.forEach(d=>{Iea(a,d.isIntersecting,d)})},{root:a.querySelector(".devsite-dialog-contents")});a.querySelectorAll(".release-note-date-section .release-note").forEach(c=>{b.observe(c)})},Iea=function(a,b,c){let d;const e={id:(d=c.target.getAttribute("id"))!=null?d:"",type:Number(c.target.getAttribute("type"))};if(b){let f;a.rg=[...((f=a.rg)!=null?f:[]),e]}else a.rg=[...a.rg.filter(f=>f.id!==e.id)]},Kea=
+function(a){switch(a){case 4:return{title:"Feature",color:"green"};case 8:return{title:"Announcement",color:"yellow"};case 2:return{title:"Change",color:"yellow"};case 9:return{title:"Libraries",color:"blue"};case 3:return{title:"Fixed",color:"blue"};case 1:return{title:"Breaking",color:"red"};case 5:return{title:"Deprecated",color:"red"};case 6:return{title:"Issue",color:"red"};case 7:return{title:"Security",color:"orange"};default:return{title:"Unspecified",color:"grey"}}},Q8=function(a,b){b=Kea(b);
+return(0,_ds.T)` <span
+      class="release-note-type-chip
+          ${a} ${b.color}">
+      ${b.title}
+    </span>`},Lea=function(a,b){const c=b.replace(/,?\s/g,"").toLowerCase();let d;return(0,_ds.T)`
+      <div class="release-note-date-section" id="date-section-${c}">
+        <h3 class="release-note-date-header">${b}</h3>
+        ${[...((d=a.releaseNotes.get(b))!=null?d:[])].map((e,f)=>{f=`${c}-${f}`;var g;(g=_ds.hh(e,_ds.uB,4))?(g=_ds.oh(g,2),g=g===null||g===void 0?null:_ds.Xe(g)):g=null;return(0,_ds.T)` <div
+        class="release-note"
+        id="${f}"
+        type="${_ds.vh(e,2)}">
+        ${Q8("large",_ds.vh(e,2))}
+        <div class="release-note-content">
+          ${g?(0,_ds.T)`${(0,_ds.IL)(g)}`:(0,_ds.T)`<p>${_ds.z(e,1)}</p>`}
+        </div>
+      </div>`})}
+      </div>
+    `},R8=class extends _ds.kK{constructor(){super(["devsite-dialog","devsite-dropdown-list"]);this.eventHandler=new _ds.G;this.releaseNotes=new Map;this.ci="";this.hj=[];this.rg=[];this.g=new _ds.Cm(async a=>{this.La({category:"Site-Wide Custom Events",action:"release notes: view old note",label:`${await _ds.Oq(_ds.E().href)} : ${a}`})},100)}Xa(){return this}async connectedCallback(){super.connectedCallback();this.ci=[...this.releaseNotes.keys()][0];this.hj=[...this.releaseNotes.keys()].map(a=>({id:a.replace(/,?\s/g,
+"").toLowerCase(),title:a}));Hea(this)}disconnectedCallback(){super.disconnectedCallback()}Gb(a){super.Gb(a);Jea(this)}render(){return(0,_ds.T)`
+      <div class="devsite-dialog-header">
+        <div>
+          <h3 class="no-link title">
+            ${"Release Notes"}
+          </h3>
+          <div class="chip-wrapper">
+            ${[...(new Set(this.rg.map(a=>a.type)))].map(a=>Q8("small",a))}
+          </div>
+        </div>
+        <devsite-dropdown-list
+            .listItems=${this.hj}>
+          <p slot="toggle" class="selected-date-toggle">${this.ci}</p>
+        </devsite-dropdown-list>
+      </div>
+      <div class="devsite-dialog-contents">
+        ${[...this.releaseNotes.keys()].map(a=>Lea(this,a))}
+      </div>
+      <div class="devsite-dialog-footer devsite-dialog-buttons">
+        <button class="button devsite-dialog-close">
+          Close
+        </button>
+      </div>`}};_ds.x([_ds.O({type:Map}),_ds.y(Object)],R8.prototype,"releaseNotes",void 0);_ds.x([_ds.P(),_ds.y(Object)],R8.prototype,"ci",void 0);_ds.x([_ds.P(),_ds.y(Array)],R8.prototype,"hj",void 0);_ds.x([_ds.P(),_ds.y(Array)],R8.prototype,"rg",void 0);try{customElements.define("devsite-view-release-notes-dialog",R8)}catch(a){console.warn("devsite.app.customElement.DevsiteViewReleaseNotesDialog",a)};})(_ds_www);
